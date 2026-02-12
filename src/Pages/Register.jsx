@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
-const Login = () => {
+const Register = () => {
   const [husband, setWife] = useState();
   console.log("husband ka pass value aa gyi", husband);
   const navigate = useNavigate();
@@ -11,10 +11,10 @@ const Login = () => {
     console.log("Success:", values);
     try {
       await axios
-        .post("http://localhost:5001/api/adhaarTeam/adhaarLogin", values)
+        .post("http://localhost:5001/api/adhaarTeam/adhaarRegister", values)
         .then((res) => {
           console.log("husband ka pass res aa gyi", res);
-          // navigate("/users");
+          navigate("/users");
           setWife(res?.data?.message);
         })
         .catch((error) => {
@@ -58,7 +58,13 @@ const Login = () => {
         >
           <Input.Password />
         </Form.Item>
-       
+        <Form.Item
+          label="Phone Number"
+          name="phoneNumber"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit">
@@ -69,4 +75,4 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+export default Register;
