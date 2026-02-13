@@ -14,7 +14,7 @@ const Register = () => {
         .post("http://localhost:5001/api/adhaarTeam/adhaarRegister", values)
         .then((res) => {
           console.log("husband ka pass res aa gyi", res);
-          navigate("/users");
+          navigate("/login");
           setWife(res?.data?.message);
         })
         .catch((error) => {

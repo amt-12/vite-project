@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Login = () => {
   const [husband, setWife] = useState();
@@ -10,11 +11,12 @@ const Login = () => {
   const onFinish = async (values) => {
     console.log("Success:", values);
     try {
-      await axios
+      await axiosInstance
         .post("http://localhost:5001/api/adhaarTeam/adhaarLogin", values)
         .then((res) => {
           console.log("husband ka pass res aa gyi", res);
           // navigate("/users");
+          localStorage.setItem("jwtToken", res?.data?.jwtToken);
           setWife(res?.data?.message);
         })
         .catch((error) => {
