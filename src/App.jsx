@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CartContext } from './components/CartProvider';
 
-function App() {
-
-
+const App = () => {
+  const {cart,addToCart}=useContext(CartContext);
+const item = "csd"
   return (
     <div>
-      <h1>hello</h1>
-    
+    <button className='bg-[red]' onClick={()=>addToCart(item)}>good</button>
+    <p>{cart}</p>
     </div>
   )
 }

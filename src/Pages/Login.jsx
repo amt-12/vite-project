@@ -16,7 +16,7 @@ const Login = () => {
         .then((res) => {
           console.log("husband ka pass res aa gyi", res);
           // navigate("/users");
-          localStorage.setItem("jwtToken", res?.data?.jwtToken);
+
           setWife(res?.data?.message);
         })
         .catch((error) => {
