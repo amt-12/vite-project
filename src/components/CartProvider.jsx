@@ -7,22 +7,25 @@ const CardProvider = ({ children }) => {
   const cart = "goodsdsdsdVibes";
 
 
-  const [husband, setWife] = useState(100);
+  const [husband, setWife] = useState("");
 
-  const [authenticated, setAuthenticated] = useState(
-    ()=>{
-      const token = localStorage.getItem("jwtToken")
-      return token ;
+const [jwtToekn,setJwtToken] = useState(
+  ()=>{
+    const token = localStorage.getItem("token");
+    if(token){
+      return token;
     }
-  );
+    return null;
+  }
+)
+console.log("jwt token",jwtToekn);
 
-console.log("authenticated",authenticated)
   const addToCart =(item)=>{
     console.log("add to cart",item);
     setWife(item)
   }
   return (
-    <CartContext.Provider value={{ cart,addToCart,husband,authenticated }}>
+    <CartContext.Provider value={{ cart,addToCart,husband,jwtToekn }}>
     {children}
     </CartContext.Provider>
   );

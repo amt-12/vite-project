@@ -8,24 +8,29 @@ import Users from "./Pages/Users.jsx";
 import Register from "./Pages/Register.jsx";
 import CardProvider from "./components/CartProvider.jsx";
 import Header from "./components/Header.jsx";
-import ProtectedRoutes from "./components/ProctedRoutes.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+
 createRoot(document.getElementById("root")).render(
   <CardProvider>
-  <BrowserRouter>
-  <Header/>
+    <BrowserRouter>
+      <Header />
 
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      <Route path="/users" element={
-      <ProtectedRoutes>
-        <Users />
-      </ProtectedRoutes>
-    }/>
+        <Route path="/users" element={
+          <ProtectedRoutes>
+          <Users />
 
-    </Routes>
-  </BrowserRouter>,
+          </ProtectedRoutes>
+          
+          
+          
+          } />
+      </Routes>
+    </BrowserRouter>
+    ,
   </CardProvider>
 );
