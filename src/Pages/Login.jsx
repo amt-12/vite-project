@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import axiosInstance from "../../utils/axiosInstance";
+import { useGoogleLogin } from "@react-oauth/google";
+import { CartContext } from "../components/CartProvider";
 
 const Login = () => {
+
   const [husband, setWife] = useState();
-  console.log("husband ka pass value aa gyi", husband);
-  const navigate = useNavigate();
+
+
   const onFinish = async (values) => {
     console.log("Success:", values);
     try {
@@ -24,13 +27,34 @@ const Login = () => {
           setWife(error?.response?.data?.message);
         });
     } catch (error) {
-      console.log("error backend",error?.response);
-
+      console.log("error backend", error?.response);
     }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log("googleTokenResponse",tokenResponse);
+      try {
+     await axiosInstance.post(
+          "http://localhost:5001/api/adhaarTeam/auth/google",
+          { access_token: tokenResponse.access_token }
+        )
+      } catch (error) {
+        console.log("Google login error:", error);
+        
+      }
+      
+
+      console.log(tokenResponse.data);
+    },
+    onError: () => console.log("Login Failed"),
+  });
+
+
+
   return (
     <>
       {/* <h1>{husband.data.message}</h1> */}
@@ -60,7 +84,6 @@ const Login = () => {
         >
           <Input.Password />
         </Form.Item>
-       
 
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit">
@@ -68,6 +91,9 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
+      <button onClick={() => login()}>
+      Continue with Google
+    </button>
     </>
   );
 };
