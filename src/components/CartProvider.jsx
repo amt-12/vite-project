@@ -8,6 +8,13 @@ const CardProvider = ({ children }) => {
 
 
   const [husband, setWife] = useState("");
+  const [role,setRole] = useState(()=>{
+    const role = localStorage.getItem("role");
+    if(role){
+      return role;
+    }
+    return null;
+  })
 
 const [jwtToekn,setJwtToken] = useState(
   ()=>{
@@ -25,7 +32,7 @@ console.log("jwt token",jwtToekn);
     setWife(item)
   }
   return (
-    <CartContext.Provider value={{ cart,addToCart,husband,jwtToekn }}>
+    <CartContext.Provider value={{ cart,addToCart,husband,jwtToekn,setRole,role }}>
     {children}
     </CartContext.Provider>
   );

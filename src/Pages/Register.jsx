@@ -44,8 +44,8 @@ const Register = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
@@ -58,14 +58,7 @@ const Register = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item
-          label="Phone Number"
-          name="phoneNumber"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-
+       
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit">
             Submit

@@ -7,9 +7,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { CartContext } from "../components/CartProvider";
 
 const Login = () => {
-
   const [husband, setWife] = useState();
-
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -19,7 +17,7 @@ const Login = () => {
         .then((res) => {
           console.log("husband ka pass res aa gyi", res);
           // navigate("/users");
-
+          localStorage.setItem("role", res.data.role);
           setWife(res?.data?.message);
         })
         .catch((error) => {
@@ -36,24 +34,20 @@ const Login = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log("googleTokenResponse",tokenResponse);
+      console.log("googleTokenResponse", tokenResponse);
       try {
-     await axiosInstance.post(
+        await axiosInstance.post(
           "http://localhost:5001/api/adhaarTeam/auth/google",
           { access_token: tokenResponse.access_token }
-        )
+        );
       } catch (error) {
         console.log("Google login error:", error);
-        
       }
-      
 
       console.log(tokenResponse.data);
     },
     onError: () => console.log("Login Failed"),
   });
-
-
 
   return (
     <>
@@ -70,8 +64,8 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="Email"
+          name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
@@ -91,9 +85,7 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
-      <button onClick={() => login()}>
-      Continue with Google
-    </button>
+      <button onClick={() => login()}>Continue with Google</button>
     </>
   );
 };

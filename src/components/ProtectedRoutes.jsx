@@ -12,5 +12,4 @@ const {jwtToekn} =useContext(CartContext);
   }
   return <Navigate to="/login" />;
 };
-
 export default ProtectedRoutes;

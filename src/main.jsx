@@ -10,6 +10,7 @@ import CardProvider from "./components/CartProvider.jsx";
 import Header from "./components/Header.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import RoleBasedCheck from "./components/RoleBasedCheck.jsx";
 
 createRoot(document.getElementById("root")).render(
 
@@ -19,7 +20,17 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={
+          <ProtectedRoutes allowedRoles={["admin,doctor"]}>
+
+
+          <App />
+
+          </ProtectedRoutes>
+          
+          
+          
+          } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
